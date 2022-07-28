@@ -20,11 +20,21 @@ public class DooGameController : MonoBehaviour
 
     public GameObject mole;
 
+    public int maxMole = 3;
+
+    public GameObject molePrefabs;
+
+    public MoleWork moleScript;
+
     //public GameObject tempText;
 
     public TextMeshProUGUI textScore;
 
     public TextMeshProUGUI countDown;
+
+    public List<GameObject> moleList = new List<GameObject> ();
+
+    public List<MoleWork> moleWorkList = new List<MoleWork> ();
 
     enum Steps
     {
@@ -54,7 +64,10 @@ public class DooGameController : MonoBehaviour
     {
         nowStep = Steps.readyStep;
 
-        mole.GetComponent<MoleWork>().setAvail(true);
+        maxMole = 3;
+
+        //mole.GetComponent<MoleWork>().setAvail(true);
+        moleScript.setAvail(false);
     }
 
     // Update is called once per frame
@@ -121,12 +134,29 @@ public class DooGameController : MonoBehaviour
         {
             countDown.text = "";
 
+            for(int i = 0; i<3; i++)
+            {
+
+                moleList.Add(Instantiate(molePrefabs, new Vector3((i-1)*3, 0, 0), Quaternion.identity));
+                moleWorkList.Add(moleList[i].GetComponent<MoleWork>());
+
+                moleWorkList[i].setAvail(true);
+
+            }
+
+
+
             nowStep = Steps.onStep;
         }
     }
 
     public void OnGame()
     {
+        //moleScript.setAvail(true);
+
+        //
+
+
 
 
     }

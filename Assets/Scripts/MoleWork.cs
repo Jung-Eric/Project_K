@@ -7,6 +7,8 @@ public class MoleWork : MonoBehaviour
     
     private float moleSpeed;
 
+    private float positionX;
+
     private float positionY;
 
     private bool direction;
@@ -18,6 +20,8 @@ public class MoleWork : MonoBehaviour
     private SpriteRenderer render;
 
     private Rigidbody2D rb;
+
+    private float jumpDelayTimer;
     
 
     void Awake()
@@ -25,10 +29,14 @@ public class MoleWork : MonoBehaviour
         moleSpeed = 3f;
 
         positionY = transform.position.y;
+
+        jumpDelayTimer = 4f;
     }
 
     void Start()
     {
+        positionX = transform.position.x;
+
         render = gameObject.GetComponent<SpriteRenderer>();
     }
 
@@ -54,7 +62,15 @@ public class MoleWork : MonoBehaviour
         }
         else if (positionY < -3)
         {
-            direction = true;
+            jumpDelayTimer = jumpDelayTimer - Time.deltaTime;
+
+            if (jumpDelayTimer < 0)
+            {
+
+                direction = true;
+
+            }
+
         }
 
         if (direction)
@@ -66,7 +82,7 @@ public class MoleWork : MonoBehaviour
             positionY = positionY - moleSpeed * Time.deltaTime;
         }
 
-        transform.position = new Vector3(0, positionY, 0);
+        transform.position = new Vector3(positionX, positionY, 0);
     }
 
     public void getClick()
@@ -86,5 +102,10 @@ public class MoleWork : MonoBehaviour
         moleAvail = tempBool;
     }
 
-   
+    public void moleDelay()
+    {
+
+    }
+  
+
 }
