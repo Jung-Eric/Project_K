@@ -138,6 +138,9 @@ public class DooGameController : MonoBehaviour
             {
 
                 moleList.Add(Instantiate(molePrefabs, new Vector3((i-1)*3, 0, 0), Quaternion.identity));
+
+                moleList[i].SetActive(true);
+
                 moleWorkList.Add(moleList[i].GetComponent<MoleWork>());
 
                 moleWorkList[i].setAvail(true);
@@ -152,9 +155,24 @@ public class DooGameController : MonoBehaviour
 
     public void OnGame()
     {
-        //moleScript.setAvail(true);
+        if (Input.GetMouseButtonDown(0))
+        {
 
-        //
+            Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            RaycastHit2D hit = Physics2D.Raycast(pos, Vector2.zero, 0f);
+
+            GameObject MouseDownObject = hit.transform.gameObject;
+
+            //Destroy(MouseDownObject);
+
+            MouseDownObject.GetComponent<MoleWork>().getClick();
+
+            //MoleWork tempScript = MouseDownObject.GetComponent<MoleWork>();
+
+
+
+        }
 
 
 
